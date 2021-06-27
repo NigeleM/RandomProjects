@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>GAME</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+        </style>
+    </head>
+    <body onload="game()">
+        <script>
+            var box;
+            var enemies;
+            var enemies1;
+            var enemies2;
+            function game()
+            {
+                
+                box = new component(30,30,"blue",11,120);
+                enemies = new enemy(30,30,"green",101,185);
+                enemies1 = new enemy(30,30,"red",467,50);
+                enemies2 = new enemy(30,30,"yellow",80,333);
+                gameStart.start();
+            }
+            
+        var gameStart = {
+            screen: document.createElement("canvas"),
+            start :function()
+            {
+                this.screen.width = 600; 
+                this.screen.height = 600;
+                this.context = this.screen.getContext("2d");
+                document.body.insertBefore(this.screen, document.body.childNodes[0]);
+                this.interval = setInterval(updateGame, 20);
+            },
+            clear:function(){
+                this.context.clearRect(0,0,this.screen.width
+                ,this.screen.height);
+            }
+            
+        }
+        
+        class enemy {
+            
+            
+        }
+        
+        enemy = function component(width, height, color,x,y){
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.x = x;
+            this.y = y;
+            this.update = function(){
+            ctx = gameStart.context;
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x,this.y,this.width,this.height);
+            },
+            this.newPos = function() {
+
+                
+                if(this.x === 570 || this.x > 570)
+                {
+                   this.speedX = 0;
+                   this.speedX -= 1;
+                   this.x -= 1;
+                   
+               }
+               else if (this.x === 0 || this.x < 0)
+                    {
+                        // This allows it to bounce
+                        // off the right side of canvas
+                        this.speedX = 0;
+                        this.speedX += 1;
+                        this.x += 1;
+                         //this.speedX;
+                    }
+                
+                else{
+                    this.x += this.speedX;
+                }
+                
+               
+               if(this.y === 570  || this.y > 570)
+                {
+                   this.speedY = 0;
+                   this.speedY -= 1;
+                   this.y -= 1;
+                  
+                }
+                else if (this.y === 0 || this.y < 0)
+                    {
+                        // This allows it to bounce
+                        // off the top of the canvas
+                        this.speedY = 0;
+                        this.speedY += 1;
+                        this.y += 1;
+                        //this.speedY;
+                    }
+                else
+                {
+                    this.y += this.speedY; 
+                }
+                
+            },
+            this.start = function()
+                {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                }
+        }
+        
+        
+        function component(width, height, color,x,y){
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.x = x;
+            this.y = y;
+            this.update = function(){
+            ctx = gameStart.context;
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x,this.y,this.width,this.height);
+            },
+            this.newPos = function() {
+
+                
+                if(this.x === 570 || this.x > 570)
+                {
+                   this.speedX = 0;
+                   this.speedX -= 1;
+                   this.x -= 1;
+                   
+               }
+               else if (this.x === 0 || this.x < 0)
+                    {
+                        // This allows it to bounce
+                        // off the right side of canvas
+                        this.speedX = 0;
+                        this.speedX += 1;
+                        this.x += 1;
+                         //this.speedX;
+                    }
+                
+                else{
+                    this.x += this.speedX;
+                }
+                
+               
+               if(this.y === 570  || this.y > 570)
+                {
+                   this.speedY = 0;
+                   this.speedY -= 1;
+                   this.y -= 1;
+                  
+                }
+                else if (this.y === 0 || this.y < 0)
+                    {
+                        // This allows it to bounce
+                        // off the top of the canvas
+                        this.speedY = 0;
+                        this.speedY += 1;
+                        this.y += 1;
+                        //this.speedY;
+                    }
+                else
+                {
+                    this.y += this.speedY; 
+                }
+                
+            }
+        }
+        
+        function updateGame(){
+            gameStart.clear();
+            box.newPos();
+            box.update();
+            enemies.newPos();
+            enemies.update();
+            enemies1.newPos();
+            enemies1.update();
+            enemies2.newPos();
+            enemies2.update();
+            
+        }
+        
+        function moveup() {
+            box.speedY -= 1; 
+        }
+
+        function movedown() {
+            box.speedY += 1; 
+        }
+
+        function moveleft() {
+            box.speedX -= 1; 
+        }
+
+        function moveright() {
+            box.speedX += 1; 
+        }
+        
+        function stop(){
+            box.speedX =0;
+            stop2();
+        }
+        
+        function stop2()
+        {
+            box.speedY = 0;
+        }
+        
+        function start()
+        {
+            enemies.speedX += 1;
+            enemies.speedY -= 1;
+            enemies1.speedX -= 3;
+            enemies1.speedY -= 2;
+            enemies2.speedX += 4;
+            enemies2.speedY += 1 ;
+        }
+        </script>
+        
+        <div style="text-align:center;width:480px;">
+        <button onclick="moveup()">UP</button><br><br>
+        <button onclick="moveleft()">LEFT</button>
+        <button onclick="moveright()">RIGHT</button><br><br>
+        <button onclick="movedown()">DOWN</button>
+        <button onclick="stop()">STOP</button>
+        <button onclick="start()">START</button>
+       
+        </div>
+        
+    </body>
+</html>
