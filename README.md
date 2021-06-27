@@ -17,5 +17,5 @@ Creating a GUI note pad
 # file Client and Server
 Send file(s) over to another client 
 
-# Index HTML FILE
+# Index HTML FILE (Asteroids Like GAME)
 A game I was developing that was going to be like Asteroids 
